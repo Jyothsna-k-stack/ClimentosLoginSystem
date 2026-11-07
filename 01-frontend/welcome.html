@@ -9,40 +9,577 @@
 
     <title>Climentos | Welcome</title>
 
-    <link rel="stylesheet" href="css/style.css">
+    <!-- Google Font -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect"
+          href="https://fonts.gstatic.com"
+          crossorigin>
+
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap"
+          rel="stylesheet">
+
+    <!-- Icons -->
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+    <!-- Welcome Page CSS -->
+    <link rel="stylesheet" href="css/welcome.css">
+
 </head>
 
-<body class="welcome-body">
+<body>
 
-    <div class="welcome-container">
+    <!-- Animated Background -->
+    <div class="background-animation"></div>
 
-        <div class="welcome-logo">
-            <span class="logo-icon">C</span>
-            <span>Climentos</span>
-        </div>
+    <!-- Main Application -->
+    <div class="app-container">
 
-        <div class="welcome-content">
+        <!-- Sidebar -->
+        <aside class="sidebar" id="sidebar">
 
-            <h1>Welcome to Climentos!</h1>
+            <!-- Logo -->
+            <div class="brand">
 
-            <p>
-                You have successfully logged in.
-            </p>
+                <div class="brand-icon">
+                    C
+                </div>
 
-            <p>
-                Welcome to your Climentos workspace.
-                We are happy to have you here.
-            </p>
+                <div class="brand-name">
+                    <h2>Climentos</h2>
+                    <span>Smart Workplace</span>
+                </div>
 
-            <button onclick="logout()">
-                Logout
-            </button>
+            </div>
 
-        </div>
+            <!-- Navigation -->
+            <nav class="navigation">
+
+                <p class="nav-heading">MAIN MENU</p>
+
+                <a href="#home" class="nav-link active">
+
+                    <i class="fa-solid fa-house"></i>
+
+                    <span>Home</span>
+
+                </a>
+
+                <a href="#dashboard" class="nav-link">
+
+                    <i class="fa-solid fa-chart-pie"></i>
+
+                    <span>Dashboard</span>
+
+                </a>
+
+                <a href="#projects" class="nav-link">
+
+                    <i class="fa-solid fa-folder-open"></i>
+
+                    <span>Projects</span>
+
+                </a>
+
+                <a href="#employees" class="nav-link">
+
+                    <i class="fa-solid fa-users"></i>
+
+                    <span>Employees</span>
+
+                </a>
+
+                <p class="nav-heading">PREFERENCES</p>
+
+                <a href="#settings" class="nav-link">
+
+                    <i class="fa-solid fa-gear"></i>
+
+                    <span>Settings</span>
+
+                </a>
+
+            </nav>
+
+            <!-- Sidebar Bottom -->
+            <div class="sidebar-bottom">
+
+                <div class="support-card">
+
+                    <i class="fa-solid fa-circle-question"></i>
+
+                    <h4>Need Help?</h4>
+
+                    <p>Contact your Climentos support team.</p>
+
+                </div>
+
+                <button class="logout-button" id="logoutButton">
+
+                    <i class="fa-solid fa-right-from-bracket"></i>
+
+                    <span>Logout</span>
+
+                </button>
+
+            </div>
+
+        </aside>
+
+
+        <!-- Main Content -->
+        <main class="main-content" id="home">
+
+            <!-- Top Navigation -->
+            <header class="topbar">
+
+                <div class="topbar-left">
+
+                    <button class="menu-button" id="menuButton"
+                            aria-label="Toggle sidebar">
+
+                        <i class="fa-solid fa-bars"></i>
+
+                    </button>
+
+                    <div>
+
+                        <p class="breadcrumb">Workspace / Home</p>
+
+                        <h3>Welcome to Climentos</h3>
+
+                    </div>
+
+                </div>
+
+                <div class="topbar-right">
+
+                    <button class="icon-button"
+                            id="notificationButton"
+                            aria-label="Notifications">
+
+                        <i class="fa-regular fa-bell"></i>
+
+                        <span class="notification-dot"></span>
+
+                    </button>
+
+                    <div class="profile">
+
+                        <div class="profile-avatar">
+                            <i class="fa-solid fa-user"></i>
+                        </div>
+
+                        <div class="profile-info">
+
+                            <h4 id="profileName">Climentos User</h4>
+
+                            <p>Employee</p>
+
+                        </div>
+
+                        <i class="fa-solid fa-chevron-down profile-arrow"></i>
+
+                    </div>
+
+                </div>
+
+            </header>
+
+
+            <!-- Welcome Hero -->
+            <section class="welcome-hero">
+
+                <div class="hero-content">
+
+                    <span class="welcome-label">
+
+                        <i class="fa-solid fa-sparkles"></i>
+
+                        YOUR WORKSPACE
+
+                    </span>
+
+                    <h1>
+                        Hello, <span id="welcomeName">User</span>!
+                    </h1>
+
+                    <p>
+                        Welcome to Climentos.
+                        Your workspace is ready.
+                        Let's make today productive.
+                    </p>
+
+                    <button class="hero-button" id="exploreButton">
+
+                        Explore Dashboard
+
+                        <i class="fa-solid fa-arrow-right"></i>
+
+                    </button>
+
+                </div>
+
+                <div class="hero-visual">
+
+                    <div class="orbit orbit-one"></div>
+
+                    <div class="orbit orbit-two"></div>
+
+                    <div class="hero-circle">
+
+                        <i class="fa-solid fa-rocket"></i>
+
+                    </div>
+
+                    <div class="floating-card floating-card-one">
+
+                        <i class="fa-solid fa-circle-check"></i>
+
+                        <span>Workspace Ready</span>
+
+                    </div>
+
+                    <div class="floating-card floating-card-two">
+
+                        <i class="fa-solid fa-star"></i>
+
+                        <span>Let's Grow</span>
+
+                    </div>
+
+                </div>
+
+            </section>
+
+
+            <!-- Dashboard -->
+            <section class="dashboard-section" id="dashboard">
+
+                <div class="section-heading">
+
+                    <div>
+
+                        <p class="section-subtitle">OVERVIEW</p>
+
+                        <h2>Your Workspace</h2>
+
+                    </div>
+
+                    <span class="today-label" id="todayDate"></span>
+
+                </div>
+
+
+                <!-- Statistics Cards -->
+                <div class="stats-grid">
+
+                    <div class="stat-card">
+
+                        <div class="stat-top">
+
+                            <div class="stat-icon purple">
+                                <i class="fa-solid fa-folder-open"></i>
+                            </div>
+
+                            <span class="stat-tag">Workspace</span>
+
+                        </div>
+
+                        <h3>Projects</h3>
+
+                        <div class="stat-bottom">
+
+                            <strong>01</strong>
+
+                            <span>Project Workspace</span>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="stat-card">
+
+                        <div class="stat-top">
+
+                            <div class="stat-icon blue">
+                                <i class="fa-solid fa-users"></i>
+                            </div>
+
+                            <span class="stat-tag">Team</span>
+
+                        </div>
+
+                        <h3>Employees</h3>
+
+                        <div class="stat-bottom">
+
+                            <strong>01</strong>
+
+                            <span>Team Members</span>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="stat-card">
+
+                        <div class="stat-top">
+
+                            <div class="stat-icon orange">
+                                <i class="fa-solid fa-list-check"></i>
+                            </div>
+
+                            <span class="stat-tag">Activity</span>
+
+                        </div>
+
+                        <h3>Tasks</h3>
+
+                        <div class="stat-bottom">
+
+                            <strong>00</strong>
+
+                            <span>Tasks Assigned</span>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="stat-card">
+
+                        <div class="stat-top">
+
+                            <div class="stat-icon green">
+                                <i class="fa-solid fa-check-double"></i>
+                            </div>
+
+                            <span class="stat-tag">Progress</span>
+
+                        </div>
+
+                        <h3>Completed</h3>
+
+                        <div class="stat-bottom">
+
+                            <strong>00</strong>
+
+                            <span>Tasks Completed</span>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <!-- Bottom Dashboard -->
+                <div class="content-grid">
+
+                    <!-- Quick Actions -->
+                    <div class="content-card">
+
+                        <div class="card-heading">
+
+                            <div>
+
+                                <p class="section-subtitle">GET STARTED</p>
+
+                                <h2>Quick Actions</h2>
+
+                            </div>
+
+                            <i class="fa-solid fa-bolt heading-icon"></i>
+
+                        </div>
+
+
+                        <div class="quick-actions">
+
+                            <button class="action-item"
+                                    data-action="projects">
+
+                                <div class="action-icon purple">
+                                    <i class="fa-solid fa-folder"></i>
+                                </div>
+
+                                <div>
+
+                                    <h4>View Projects</h4>
+
+                                    <p>Explore your workspace</p>
+
+                                </div>
+
+                                <i class="fa-solid fa-arrow-right"></i>
+
+                            </button>
+
+
+                            <button class="action-item"
+                                    data-action="employees">
+
+                                <div class="action-icon blue">
+                                    <i class="fa-solid fa-user-group"></i>
+                                </div>
+
+                                <div>
+
+                                    <h4>Team Members</h4>
+
+                                    <p>View team information</p>
+
+                                </div>
+
+                                <i class="fa-solid fa-arrow-right"></i>
+
+                            </button>
+
+
+                            <button class="action-item"
+                                    data-action="settings">
+
+                                <div class="action-icon orange">
+                                    <i class="fa-solid fa-sliders"></i>
+                                </div>
+
+                                <div>
+
+                                    <h4>Settings</h4>
+
+                                    <p>Manage preferences</p>
+
+                                </div>
+
+                                <i class="fa-solid fa-arrow-right"></i>
+
+                            </button>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- Activity -->
+                    <div class="content-card activity-card">
+
+                        <div class="card-heading">
+
+                            <div>
+
+                                <p class="section-subtitle">YOUR SPACE</p>
+
+                                <h2>Recent Activity</h2>
+
+                            </div>
+
+                            <i class="fa-solid fa-clock-rotate-left heading-icon"></i>
+
+                        </div>
+
+
+                        <div class="activity-list">
+
+                            <div class="activity-item">
+
+                                <div class="activity-icon purple">
+                                    <i class="fa-solid fa-right-to-bracket"></i>
+                                </div>
+
+                                <div>
+
+                                    <h4>Login Successful</h4>
+
+                                    <p>You entered your workspace.</p>
+
+                                </div>
+
+                                <span class="activity-time">Now</span>
+
+                            </div>
+
+
+                            <div class="activity-item">
+
+                                <div class="activity-icon blue">
+                                    <i class="fa-solid fa-user"></i>
+                                </div>
+
+                                <div>
+
+                                    <h4>Welcome</h4>
+
+                                    <p>Your account is ready.</p>
+
+                                </div>
+
+                                <span class="activity-time">Today</span>
+
+                            </div>
+
+
+                            <div class="activity-item">
+
+                                <div class="activity-icon green">
+                                    <i class="fa-solid fa-shield-halved"></i>
+                                </div>
+
+                                <div>
+
+                                    <h4>Workspace Access</h4>
+
+                                    <p>Welcome to Climentos.</p>
+
+                                </div>
+
+                                <span class="activity-time">Today</span>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <!-- Footer -->
+                <footer class="footer">
+
+                    <p>
+                        © <span id="currentYear"></span>
+                        Climentos. All rights reserved.
+                    </p>
+
+                    <p>
+                        Designed for a smarter workplace
+                        <i class="fa-solid fa-heart"></i>
+                    </p>
+
+                </footer>
+
+            </section>
+
+        </main>
 
     </div>
 
-    <script src="js/login.js"></script>
+
+    <!-- Toast Message -->
+    <div class="toast" id="toast">
+
+        <i class="fa-solid fa-circle-check"></i>
+
+        <span id="toastMessage">Welcome to Climentos!</span>
+
+    </div>
+
+
+    <!-- Welcome Page JavaScript -->
+    <script src="js/welcome.js"></script>
 
 </body>
 
