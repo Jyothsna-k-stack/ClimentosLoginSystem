@@ -1,557 +1,618 @@
-//JS excutes after the html document is loaded
 document.addEventListener("DOMContentLoaded", function () {
 
-    // LOGIN VIEW
+// =====================================
+// 1. GET HTML ELEMENTS
+// =====================================
 
-    const loginView =
-        document.getElementById("loginView");
+const loginView = document.getElementById("loginView");
+const forgotView = document.getElementById("forgotView");
+const signupView = document.getElementById("signupView");
 
+const loginForm = document.getElementById("loginForm");
+const forgotForm = document.getElementById("forgotForm");
+const signupForm = document.getElementById("signupForm");
 
-    // FORGOT PASSWORD VIEW
+const email = document.getElementById("email");
+const password = document.getElementById("password");
 
-    const forgotView =
-        document.getElementById("forgotView");
+const togglePassword = document.getElementById("togglePassword");
+const rememberMe = document.getElementById("rememberMe");
 
+const forgotPasswordBtn =
+    document.getElementById("forgotPasswordBtn");
 
-    // CREATE ACCOUNT VIEW
+const createAccountBtn =
+    document.getElementById("createAccountBtn");
 
-    const signupView =
-        document.getElementById("signupView");
+const backToLoginFromForgot =
+    document.getElementById("backToLoginFromForgot");
 
-
-
-  
-    // 2. GET BUTTONS
-   
-
-
-    const forgotPasswordBtn =
-        document.getElementById("forgotPasswordBtn");
-
-
-    const createAccountBtn =
-        document.getElementById("createAccountBtn");
-
-
-    const backToLoginFromForgot =
-        document.getElementById("backToLoginFromForgot");
+const backToLoginFromSignup =
+    document.getElementById("backToLoginFromSignup");
 
 
-    const backToLoginFromSignup =
-        document.getElementById("backToLoginFromSignup");
+// =====================================
+// 2. STORAGE KEY
+// =====================================
+
+const USER_STORAGE_KEY = "climentosUser";
+
+// BACKEND LOGIN API
+const LOGIN_API =
+    "http://localhost:8080/api/users/login";
 
 
+// =====================================
+// 3. SHOW LOGIN VIEW
+// =====================================
 
-    // 3. GET PASSWORD ELEMENTS
-  
+function showLoginView() {
 
+    loginView.classList.remove("hidden-view");
+    forgotView.classList.add("hidden-view");
+    signupView.classList.add("hidden-view");
 
-    const passwordInput =
-        document.getElementById("password");
-
-
-    const togglePassword =
-        document.getElementById("togglePassword");
-
-
-
-    // 4. GET FORMS
-   
+}
 
 
-    const loginForm =
-        document.getElementById("loginForm");
+// =====================================
+// 4. SHOW FORGOT PASSWORD VIEW
+// =====================================
+
+function showForgotView() {
+
+    loginView.classList.add("hidden-view");
+    forgotView.classList.remove("hidden-view");
+    signupView.classList.add("hidden-view");
+
+}
 
 
-    const forgotForm =
-        document.getElementById("forgotForm");
+// =====================================
+// 5. SHOW SIGNUP VIEW
+// =====================================
+
+function showSignupView() {
+
+    loginView.classList.add("hidden-view");
+    forgotView.classList.add("hidden-view");
+    signupView.classList.remove("hidden-view");
+
+}
 
 
-    const signupForm =
-        document.getElementById("signupForm");
+// =====================================
+// 6. EMAIL VALIDATION
+// =====================================
+
+function isValidEmail(emailValue) {
+
+    const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+    return emailPattern.test(emailValue);
+
+}
 
 
+// =====================================
+// 7. PASSWORD VALIDATION
+// =====================================
 
-  
-    // 5. SHOW LOGIN VIEW
-   
+function isValidPassword(passwordValue) {
 
+    return passwordValue.length >= 6;
 
-    function showLogin() {
-
-
-        // Show login
-
-        loginView.style.display = "block";
+}
 
 
-        // Hide forgot password
+// =====================================
+// 8. GET SAVED ACCOUNT SAFELY
+// =====================================
 
-        forgotView.style.display = "none";
+function getSavedUser() {
+
+    const savedUser = localStorage.getItem(USER_STORAGE_KEY);
+
+    if (!savedUser) {
+        return null;
+    }
+
+    try {
+
+        return JSON.parse(savedUser);
+
+    } catch (error) {
+
+        return null;
+
+    }
+
+}
 
 
-        // Hide signup
+// =====================================
+// 9. FORGOT PASSWORD BUTTON
+// =====================================
 
-        signupView.style.display = "none";
+forgotPasswordBtn.addEventListener("click", function () {
 
+    showForgotView();
 
-        // Clear password
-
-        passwordInput.value = "";
-
-
-        // Hide password again
-
-        passwordInput.type = "password";
+});
 
 
-        // Reset button text
+// =====================================
+// 10. CREATE ACCOUNT BUTTON
+// =====================================
 
+createAccountBtn.addEventListener("click", function () {
+
+    showSignupView();
+
+});
+
+
+// =====================================
+// 11. BACK TO LOGIN FROM FORGOT
+// =====================================
+
+backToLoginFromForgot.addEventListener("click", function () {
+
+    forgotForm.reset();
+
+    showLoginView();
+
+});
+
+
+// =====================================
+// 12. BACK TO LOGIN FROM SIGNUP
+// =====================================
+
+backToLoginFromSignup.addEventListener("click", function () {
+
+    signupForm.reset();
+
+    showLoginView();
+
+});
+
+
+// =====================================
+// 13. SHOW / HIDE PASSWORD
+// =====================================
+
+togglePassword.addEventListener("click", function () {
+
+    if (password.type === "password") {
+
+        password.type = "text";
+        togglePassword.textContent = "Hide";
+
+    } else {
+
+        password.type = "password";
         togglePassword.textContent = "Show";
 
+    }
+
+});
+
+
+// =====================================
+// 14. LOGIN USING SPRING BOOT
+// =====================================
+
+loginForm.addEventListener("submit", async function (event) {
+
+    event.preventDefault();
+
+
+    // GET EMAIL AND PASSWORD
+
+    const enteredEmail = email.value.trim().toLowerCase();
+
+    const enteredPassword = password.value;
+
+
+    // VALIDATE EMAIL
+
+    if (!isValidEmail(enteredEmail)) {
+
+        alert("Please enter a valid email address.");
+
+        email.focus();
+
+        return;
 
     }
 
 
+    // VALIDATE PASSWORD
 
-   
-    // 6. SHOW FORGOT PASSWORD VIEW
-    
+    if (!isValidPassword(enteredPassword)) {
 
+        alert("Password must contain at least 6 characters.");
 
-    function showForgotPassword() {
+        password.focus();
 
-
-        loginView.style.display = "none";
-
-
-        forgotView.style.display = "block";
-
-
-        signupView.style.display = "none";
-
+        return;
 
     }
 
 
+    // SEND LOGIN REQUEST TO BACKEND
 
-    // 7. SHOW SIGNUP VIEW
-   
+    try {
 
+        const response = await fetch(LOGIN_API, {
 
-    function showSignup() {
+            method: "POST",
 
+            headers: {
+                "Content-Type": "application/json"
+            },
 
-        loginView.style.display = "none";
+            body: JSON.stringify({
 
+                email: enteredEmail,
+                password: enteredPassword
 
-        forgotView.style.display = "none";
+            })
 
-
-        signupView.style.display = "block";
-
-
-    }
-
-
-
-    
-    // 8. FORGOT PASSWORD BUTTON
-    
+        });
 
 
-    forgotPasswordBtn.addEventListener(
-        "click",
-        function () {
+        // GET BACKEND RESPONSE
+
+        const result = await response.text();
 
 
-            showForgotPassword();
+        // CHECK LOGIN SUCCESS
+
+        if (response.ok && result.trim() === "Login successful") {
 
 
-        }
-    );
+            // GET USERNAME FROM EMAIL
+
+            let username = enteredEmail.split("@")[0];
 
 
+            // IF REGISTERED ACCOUNT EXISTS, USE FULL NAME
 
-  
-    // 9. CREATE ACCOUNT BUTTON
-    
+            const savedUser = getSavedUser();
 
+            if (
+                savedUser &&
+                savedUser.email &&
+                savedUser.email.toLowerCase() === enteredEmail
+            ) {
 
-    createAccountBtn.addEventListener(
-        "click",
-        function () {
+                username = savedUser.fullName;
 
-
-            showSignup();
-
-
-        }
-    );
+            }
 
 
+            // SAVE USERNAME FOR WELCOME PAGE
 
-   
-    // 10. BACK TO LOGIN FROM FORGOT
-   
-
-
-    backToLoginFromForgot.addEventListener(
-        "click",
-        function () {
+            localStorage.setItem(
+                "climentosUserName",
+                username
+            );
 
 
-            showLogin();
+            // REMEMBER ME
 
+            if (rememberMe.checked) {
 
-        }
-    );
-
-
-
-  
-    // 11. BACK TO LOGIN FROM SIGNUP
-   
-
-
-    backToLoginFromSignup.addEventListener(
-        "click",
-        function () {
-
-
-            showLogin();
-
-
-        }
-    );
-
-
-
-  
-    // 12. SHOW / HIDE PASSWORD
-   
-
-
-    togglePassword.addEventListener(
-        "click",
-        function () {
-
-
-            // Check password type
-
-            if (passwordInput.type === "password") {
-
-
-                // Show password
-
-                passwordInput.type = "text";
-
-
-                // Change button
-
-                togglePassword.textContent = "Hide";
-
+                localStorage.setItem(
+                    "climentosRememberEmail",
+                    enteredEmail
+                );
 
             } else {
 
-
-                // Hide password
-
-                passwordInput.type = "password";
-
-
-                // Change button
-
-                togglePassword.textContent = "Show";
-
+                localStorage.removeItem(
+                    "climentosRememberEmail"
+                );
 
             }
 
 
+            // OPEN WELCOME PAGE
+
+            window.location.href = "welcome.html";
+
+        } else {
+
+            // LOGIN FAILED
+
+            alert("Invalid email or password.");
+
         }
+
+    } catch (error) {
+
+        // BACKEND CONNECTION ERROR
+
+        console.error("Login error:", error);
+
+        alert(
+            "Unable to connect to the backend. " +
+            "Please make sure Spring Boot is running."
+        );
+
+    }
+
+});
+
+
+// =====================================
+// 15. CREATE ACCOUNT FORM
+// =====================================
+
+signupForm.addEventListener("submit", function (event) {
+
+    event.preventDefault();
+
+
+    // GET FORM VALUES
+
+    const fullName =
+        document.getElementById("fullName").value.trim();
+
+    const signupEmail =
+        document.getElementById("signupEmail").value.trim().toLowerCase();
+
+    const signupPassword =
+        document.getElementById("signupPassword").value;
+
+    const confirmPassword =
+        document.getElementById("confirmPassword").value;
+
+
+    // VALIDATE NAME
+
+    if (fullName.length < 2) {
+
+        alert("Please enter your full name.");
+
+        return;
+
+    }
+
+
+    // VALIDATE EMAIL
+
+    if (!isValidEmail(signupEmail)) {
+
+        alert("Please enter a valid email address.");
+
+        return;
+
+    }
+
+
+    // VALIDATE PASSWORD
+
+    if (!isValidPassword(signupPassword)) {
+
+        alert("Password must contain at least 6 characters.");
+
+        return;
+
+    }
+
+
+    // CHECK PASSWORD MATCH
+
+    if (signupPassword !== confirmPassword) {
+
+        alert("Passwords do not match.");
+
+        return;
+
+    }
+
+
+    // CHECK EXISTING ACCOUNT
+
+    const existingUser = getSavedUser();
+
+    if (
+        existingUser &&
+        existingUser.email &&
+        existingUser.email.toLowerCase() === signupEmail
+    ) {
+
+        alert("An account already exists with this email.");
+
+        return;
+
+    }
+
+
+    // CREATE NEW ACCOUNT
+
+    const newUser = {
+
+        fullName: fullName,
+        email: signupEmail,
+        password: signupPassword
+
+    };
+
+
+    // SAVE ACCOUNT IN LOCAL STORAGE
+
+    localStorage.setItem(
+        USER_STORAGE_KEY,
+        JSON.stringify(newUser)
     );
 
 
+    // SUCCESS MESSAGE
 
-    
-    // 13. LOGIN FORM
-  
-
-
-    loginForm.addEventListener(
-        "submit",
-        function (event) {
+    alert("Account created successfully! You can now login.");
 
 
-            // Prevent page refresh
+    // RESET SIGNUP FORM
 
-            event.preventDefault();
-
-
-
-            // Get email
-
-            const email =
-                document.getElementById("email").value.trim();
+    signupForm.reset();
 
 
+    // RETURN TO LOGIN
 
-            // Get password
-
-            const password =
-                passwordInput.value;
-            //email validation
-            if(email===""){
-                alert("please enter your email");
-                return
-            }
+    showLoginView();
 
 
-            // Check password
+    // FILL REGISTERED EMAIL
 
-            if (password==="") {
+    email.value = signupEmail;
 
+    password.value = "";
 
-                alert(
-                    "Please enter your password"
-                );
-
-
-                return;
+});
 
 
-            }
+// =====================================
+// 16. FORGOT PASSWORD FORM
+// =====================================
+
+forgotForm.addEventListener("submit", function (event) {
+
+    event.preventDefault();
 
 
+    // GET FORM VALUES
 
-            // Frontend validation
+    const resetEmail =
+        document.getElementById("resetEmail").value.trim().toLowerCase();
 
-            //extract username from email
+    const newPassword =
+        document.getElementById("newPassword").value;
 
-            const username=email.split("@")[0];
-
-            //store username
-            localStorage.setItem("climentosUserName",username);
-          
-            //open welcome page
-            window.location.href="welcome.html";
+    const confirmResetPassword =
+        document.getElementById("confirmResetPassword").value;
 
 
-            // Display email in console
+    // VALIDATE EMAIL
 
-            console.log("Login email:", email);
+    if (!isValidEmail(resetEmail)) {
+
+        alert("Please enter a valid email address.");
+
+        return;
+
+    }
 
 
+    // VALIDATE PASSWORD
 
-            // Backend login will be connected later.
+    if (!isValidPassword(newPassword)) {
+
+        alert("Password must contain at least 6 characters.");
+
+        return;
+
+    }
 
 
-        }
+    // CHECK PASSWORD MATCH
+
+    if (newPassword !== confirmResetPassword) {
+
+        alert("Passwords do not match.");
+
+        return;
+
+    }
+
+
+    // GET REGISTERED ACCOUNT
+
+    const user = getSavedUser();
+
+
+    // CHECK ACCOUNT
+
+    if (!user || !user.email) {
+
+        alert("No registered account found.");
+
+        return;
+
+    }
+
+
+    // CHECK REGISTERED EMAIL
+
+    if (user.email.toLowerCase() !== resetEmail) {
+
+        alert("Email address is not registered.");
+
+        return;
+
+    }
+
+
+    // UPDATE PASSWORD
+
+    user.password = newPassword;
+
+
+    // SAVE UPDATED ACCOUNT
+
+    localStorage.setItem(
+        USER_STORAGE_KEY,
+        JSON.stringify(user)
     );
 
 
+    // SUCCESS MESSAGE
 
-    // 14. CREATE ACCOUNT FORM
-    
+    alert("Password updated successfully!");
 
 
-    signupForm.addEventListener(
-        "submit",
-        function (event) {
+    // RESET FORM
 
+    forgotForm.reset();
 
-            // Prevent page refresh
 
-            event.preventDefault();
+    // RETURN TO LOGIN
 
+    showLoginView();
 
 
-            // Get full name
+    // FILL EMAIL
 
-            const fullName =
-                document.getElementById("fullName").value.trim();
+    email.value = resetEmail;
 
+    password.value = "";
 
+});
 
-            // Get email
 
-            const email =
-                document.getElementById("signupEmail").value.trim();
+// =====================================
+// 17. REMEMBER ME
+// =====================================
 
+const rememberedEmail =
+    localStorage.getItem("climentosRememberEmail");
 
+if (rememberedEmail) {
 
-            // Get password
+    email.value = rememberedEmail;
 
-            const password =
-                document.getElementById("signupPassword").value;
+    rememberMe.checked = true;
 
+}
 
 
-            // Get confirm password
+// =====================================
+// 18. INITIAL VIEW
+// =====================================
 
-            const confirmPassword =
-                document.getElementById("confirmPassword").value;
-
-
-
-            // Check password length
-
-            if (password.length < 6) {
-
-
-                alert(
-                    "Password must contain at least 6 characters."
-                );
-
-
-                return;
-
-
-            }
-
-
-
-            // Check password matching
-
-            if (password !== confirmPassword) {
-
-
-                alert(
-                    "Password and confirm password do not match!"
-                );
-
-
-                return;
-
-
-            }
-
-
-
-            // Frontend validation
-
-            alert(
-                "Account form validation successful!"
-            );
-
-
-
-            // Display information in console
-
-            console.log("Name:", fullName);
-
-            console.log("Email:", email);
-
-
-
-            // Backend registration will be connected later.
-
-
-        }
-    );
-
-
-
-   
-    // 15. FORGOT PASSWORD FORM
-  
-
-
-    forgotForm.addEventListener(
-        "submit",
-        function (event) {
-
-
-            // Prevent page refresh
-
-            event.preventDefault();
-
-
-
-            // Get email
-
-            const email =
-                document.getElementById("resetEmail").value.trim();
-
-
-
-            // Get new password
-
-            const newPassword =
-                document.getElementById("newPassword").value;
-
-
-
-            // Get confirm password
-
-            const confirmPassword =
-                document.getElementById("confirmResetPassword").value;
-
-
-
-            // Check password length
-
-            if (newPassword.length < 6) {
-
-
-                alert(
-                    "Password must contain at least 6 characters."
-                );
-
-
-                return;
-
-
-            }
-
-
-
-            // Check password matching
-
-            if (newPassword !== confirmPassword) {
-
-
-                alert(
-                    "New password and confirm password do not match!"
-                );
-
-
-                return;
-
-
-            }
-
-
-
-            // Frontend validation
-
-            alert(
-                "Password reset form validation successful!"
-            );
-
-
-
-            // Display email in console
-
-            console.log("Reset email:", email);
-
-
-
-            // Actual password reset will be connected
-            // to Spring Boot later.
-
-
-        }
-    );
-
-
-
-    // 16. INITIAL PAGE
-   
-
-
-    showLogin();
-
-
+showLoginView();
 
 });

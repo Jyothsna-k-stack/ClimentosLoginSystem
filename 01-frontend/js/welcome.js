@@ -1,8 +1,13 @@
+// =====================================
+// 1. WAIT FOR HTML TO LOAD
+// =====================================
+
 document.addEventListener("DOMContentLoaded", function () {
 
-   
-    // GET HTML ELEMENTS
-    
+
+    // =====================================
+    // 2. GET HTML ELEMENTS
+    // =====================================
 
     const welcomeName = document.getElementById("welcomeName");
 
@@ -14,71 +19,97 @@ document.addEventListener("DOMContentLoaded", function () {
 
     const logoutButton = document.getElementById("logoutButton");
 
-    const menuButton = document.getElementById("menuButton");
-
-    const sidebar = document.getElementById("sidebar");
-
     const exploreButton = document.getElementById("exploreButton");
-
-    const notificationButton = document.getElementById("notificationButton");
 
     const toast = document.getElementById("toast");
 
     const toastMessage = document.getElementById("toastMessage");
 
 
-   
-    //  GET LOGGED-IN USER NAME
-    
+    // =====================================
+    // 3. GET LOGGED-IN USER NAME
+    // =====================================
 
-    const savedName = localStorage.getItem("climentosUserName");
+    const savedUserName = localStorage.getItem("climentosUserName");
 
-    const userName = savedName || "User";
-
-    welcomeName.textContent = userName;
-
-    profileName.textContent = userName;
+    const userName = savedUserName || "User";
 
 
-    
-    // DISPLAY TODAY'S DATE
-  
+    // Display name on welcome page
 
-    const today = new Date();
-
-    const formattedDate = today.toLocaleDateString("en-IN", {
-
-        day: "2-digit",
-
-        month: "short",
-
-        year: "numeric"
-
-    });
-
-    todayDate.textContent = formattedDate;
+    if (welcomeName) {
+        welcomeName.textContent = userName;
+    }
 
 
-  
-    //  DISPLAY CURRENT YEAR
-    
+    // Display name in profile section
 
-    currentYear.textContent = today.getFullYear();
+    if (profileName) {
+        profileName.textContent = userName;
+    }
 
 
-   
-    // TOAST FUNCTION
-    
+    // =====================================
+    // 4. DISPLAY TODAY'S DATE
+    // =====================================
+
+    if (todayDate) {
+
+        const today = new Date();
+
+        const formattedDate = today.toLocaleDateString("en-IN", {
+
+            day: "2-digit",
+
+            month: "short",
+
+            year: "numeric"
+
+        });
+
+        todayDate.textContent = formattedDate;
+
+    }
+
+
+    // =====================================
+    // 5. DISPLAY CURRENT YEAR
+    // =====================================
+
+    if (currentYear) {
+
+        const year = new Date().getFullYear();
+
+        currentYear.textContent = year;
+
+    }
+
+
+    // =====================================
+    // 6. TOAST MESSAGE FUNCTION
+    // =====================================
 
     let toastTimer;
 
     function showToast(message) {
 
+        if (!toast || !toastMessage) {
+            return;
+        }
+
+        // Display message
+
         toastMessage.textContent = message;
+
+        // Show toast
 
         toast.classList.add("show");
 
+        // Clear previous timer
+
         clearTimeout(toastTimer);
+
+        // Hide toast after 3 seconds
 
         toastTimer = setTimeout(function () {
 
@@ -89,153 +120,60 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
 
-    
-    //  SIDEBAR MENU
-  
+    // =====================================
+    // 7. EXPLORE MORE BUTTON
+    // =====================================
 
-    menuButton.addEventListener("click", function () {
+    if (exploreButton) {
 
-        sidebar.classList.toggle("open");
+        exploreButton.addEventListener("click", function () {
 
-    });
+            showToast("Welcome to Climentos! Your journey starts here.");
+
+        });
+
+    }
 
 
-    //  NAVIGATION LINKS
-    
+    // =====================================
+    // 8. LOGOUT FUNCTIONALITY
+    // =====================================
 
-    const navigationLinks = document.querySelectorAll(".nav-link");
+    if (logoutButton) {
 
-    navigationLinks.forEach(function (link) {
+        logoutButton.addEventListener("click", function () {
 
-        link.addEventListener("click", function (event) {
+            // Ask for confirmation
 
-            event.preventDefault();
+            const confirmLogout = confirm(
+                "Are you sure you want to logout?"
+            );
 
-            // Remove active class from all links
 
-            navigationLinks.forEach(function (item) {
+            if (confirmLogout) {
 
-                item.classList.remove("active");
+                // Remove saved username
 
-            });
+                localStorage.removeItem("climentosUserName");
 
-            // Add active class to clicked link
+                // Return to login page
 
-            link.classList.add("active");
-
-            // Get the section name
-
-            const sectionName = link.getAttribute("href").substring(1);
-
-            // Home and Dashboard
-
-            if (sectionName === "home" ||
-                sectionName === "dashboard") {
-
-                document.getElementById(sectionName).scrollIntoView({
-
-                    behavior: "smooth"
-
-                });
-
-                sidebar.classList.remove("open");
-
-                return;
+                window.location.href = "index.html";
 
             }
 
-            // Other sections are placeholders for now
-
-            showToast(sectionName.charAt(0).toUpperCase() +
-                      sectionName.slice(1) +
-                      " section will be connected later.");
-
-            sidebar.classList.remove("open");
-
         });
 
-    });
+    }
 
 
-  
-    // EXPLORE DASHBOARD BUTTON
-   
-    exploreButton.addEventListener("click", function () {
-
-        document.getElementById("dashboard").scrollIntoView({
-
-            behavior: "smooth"
-
-        });
-
-        showToast("Welcome to your Climentos dashboard!");
-
-    });
-
-
-    
-    // QUICK ACTION BUTTONS
-  
-
-    const actionButtons = document.querySelectorAll(".action-item");
-
-    actionButtons.forEach(function (button) {
-
-        button.addEventListener("click", function () {
-
-            const action = button.getAttribute("data-action");
-
-            showToast(action.charAt(0).toUpperCase() +
-                      action.slice(1) +
-                      " section will be connected later.");
-
-        });
-
-    });
-
-
-    // NOTIFICATION BUTTON
-  
-
-    notificationButton.addEventListener("click", function () {
-
-        showToast("You are all caught up!");
-
-    });
-
-
-    
-    //  LOGOUT
-  
-
-    logoutButton.addEventListener("click", function () {
-
-        const confirmLogout = confirm(
-            "Are you sure you want to logout?"
-        );
-
-        if (confirmLogout) {
-
-            // Remove logged-in user information
-
-            localStorage.removeItem("climentosUserName");
-
-            // Return to login page
-
-            window.location.href = "index.html";
-
-        }
-
-    });
-
-
-    
-    //  WELCOME MESSAGE
-   
+    // =====================================
+    // 9. WELCOME TOAST MESSAGE
+    // =====================================
 
     setTimeout(function () {
 
-        showToast("Welcome to Climentos, " + userName + "!");
+        showToast("Welcome to Climentos!");
 
     }, 800);
 
