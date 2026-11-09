@@ -26,6 +26,6 @@ public String getPassword() {
 // Set password
 public void setPassword(String password) {
     this.password = password;
-}
+}  
 
 }

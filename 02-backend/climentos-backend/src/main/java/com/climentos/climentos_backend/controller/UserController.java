@@ -23,9 +23,9 @@ public UserController(UserService userService) {
 }
 
 
-// =====================================
-// 1. CHECK EMAIL
-// =====================================
+
+//  CHECK EMAIL
+
 
 @GetMapping("/check-email")
 public boolean checkEmail(@RequestParam String email) {
@@ -35,9 +35,9 @@ public boolean checkEmail(@RequestParam String email) {
 }
 
 
-// =====================================
-// 2. LOGIN API
-// =====================================
+
+// LOGIN API
+
 
 @PostMapping("/login")
 public String login(@RequestBody LoginRequest loginRequest) {

@@ -1,6 +1,6 @@
-/* =====================================
-   1. GLOBAL RESET
-===================================== */
+
+   /* PAGE RESET */
+
 
 * {
     margin: 0;
@@ -9,9 +9,9 @@
 }
 
 
-/* =====================================
-   2. BODY BACKGROUND
-===================================== */
+
+    /* BODY BACKGROUND */
+
 
 body {
     font-family: "Poppins", sans-serif;
@@ -32,66 +32,9 @@ body {
 }
 
 
-/* =====================================
-   3. ANIMATED BACKGROUND
-===================================== */
 
-.background-animation {
-    position: fixed;
-    inset: 0;
+   /* MAIN CONTAINER */
 
-    overflow: hidden;
-    pointer-events: none;
-    z-index: 0;
-}
-
-.background-shape {
-    position: absolute;
-
-    border-radius: 50%;
-    filter: blur(100px);
-
-    opacity: 0.35;
-
-    animation: backgroundMove 12s ease-in-out infinite alternate;
-}
-
-.shape-one {
-    width: 450px;
-    height: 450px;
-
-    background: #5546A8;
-
-    top: -150px;
-    left: -100px;
-}
-
-.shape-two {
-    width: 400px;
-    height: 400px;
-
-    background: #3189B8;
-
-    bottom: -150px;
-    right: -100px;
-
-    animation-delay: 3s;
-}
-
-@keyframes backgroundMove {
-    0% {
-        transform: translate(0, 0);
-    }
-
-    100% {
-        transform: translate(70px, 50px);
-    }
-}
-
-
-/* =====================================
-   4. MAIN CONTAINER
-===================================== */
 
 .welcome-container {
     position: relative;
@@ -108,9 +51,9 @@ body {
 }
 
 
-/* =====================================
-   5. TOP HEADER
-===================================== */
+
+   /* TOP HEADER */
+
 
 .topbar {
     display: flex;
@@ -163,9 +106,9 @@ body {
 }
 
 
-/* =====================================
-   6. PROFILE SECTION
-===================================== */
+
+    /* PROFILE SECTION */
+
 
 .topbar-right {
     display: flex;
@@ -244,9 +187,9 @@ body {
 }
 
 
-/* =====================================
-   7. MAIN WELCOME SECTION
-===================================== */
+
+   /* MAIN WELCOME SECTION */
+
 
 .hero-section {
     flex: 1;
@@ -262,9 +205,9 @@ body {
 }
 
 
-/* =====================================
-   8. LEFT WELCOME CONTENT
-===================================== */
+
+   /* LEFT WELCOME CONTENT */
+
 
 .hero-content {
     max-width: 650px;
@@ -361,9 +304,8 @@ body {
 }
 
 
-/* =====================================
-   9. EXPLORE BUTTON
-===================================== */
+
+   /* EXPLORE BUTTON */
 
 .explore-button {
     display: inline-flex;
@@ -407,9 +349,9 @@ body {
 }
 
 
-/* =====================================
-   10. DATE AND DETAILS
-===================================== */
+
+   /* DATE AND DETAILS */
+
 
 .welcome-details {
     display: flex;
@@ -443,9 +385,9 @@ body {
 }
 
 
-/* =====================================
-   11. RIGHT VISUAL SECTION
-===================================== */
+
+   /* RIGHT VISUAL SECTION */
+
 
 .hero-visual {
     display: flex;
@@ -560,9 +502,8 @@ body {
 }
 
 
-/* =====================================
-   12. FOOTER
-===================================== */
+   /* FOOTER */
+
 
 .footer {
     display: flex;
@@ -580,10 +521,8 @@ body {
 }
 
 
-/* =====================================
-   13. TOAST MESSAGE
-===================================== */
 
+   /* TOAST MESSAGE */
 .toast {
     position: fixed;
 
@@ -627,9 +566,9 @@ body {
 }
 
 
-/* =====================================
-   14. SHORT DESKTOP SCREENS
-===================================== */
+
+   /* SHORT DESKTOP SCREENS */
+
 
 @media (max-height: 700px) and (min-width: 651px) {
 
@@ -693,9 +632,8 @@ body {
 }
 
 
-/* =====================================
-   15. TABLET RESPONSIVE DESIGN
-===================================== */
+
+   /* TABLET RESPONSIVE DESIGN */
 
 @media (max-width: 900px) and (min-width: 651px) {
 
@@ -739,9 +677,8 @@ body {
 }
 
 
-/* =====================================
-   16. MOBILE RESPONSIVE DESIGN
-===================================== */
+
+   /* MOBILE RESPONSIVE DESIGN */
 
 @media (max-width: 650px) {
 
@@ -868,9 +805,9 @@ body {
 }
 
 
-/* =====================================
-   17. REDUCED MOTION ACCESSIBILITY
-===================================== */
+
+    /* REDUCED MOTION ACCESSIBILITY */
+
 
 @media (prefers-reduced-motion: reduce) {
 

@@ -1,8 +1,9 @@
 document.addEventListener("DOMContentLoaded", function () {
+    //start js after html has been loaded
 
-// =====================================
-// 1. GET HTML ELEMENTS
-// =====================================
+
+//  GET HTML ELEMENTS
+
 
 const loginView = document.getElementById("loginView");
 const forgotView = document.getElementById("forgotView");
@@ -31,9 +32,9 @@ const backToLoginFromSignup =
     document.getElementById("backToLoginFromSignup");
 
 
-// =====================================
-// 2. STORAGE KEY
-// =====================================
+
+// STORAGE KEY
+
 
 const USER_STORAGE_KEY = "climentosUser";
 
@@ -42,9 +43,9 @@ const LOGIN_API =
     "http://localhost:8080/api/users/login";
 
 
-// =====================================
-// 3. SHOW LOGIN VIEW
-// =====================================
+
+// SHOW LOGIN VIEW
+
 
 function showLoginView() {
 
@@ -55,9 +56,9 @@ function showLoginView() {
 }
 
 
-// =====================================
-// 4. SHOW FORGOT PASSWORD VIEW
-// =====================================
+
+//  SHOW FORGOT PASSWORD VIEW
+
 
 function showForgotView() {
 
@@ -68,9 +69,9 @@ function showForgotView() {
 }
 
 
-// =====================================
-// 5. SHOW SIGNUP VIEW
-// =====================================
+
+// SHOW SIGNUP VIEW
+
 
 function showSignupView() {
 
@@ -81,9 +82,9 @@ function showSignupView() {
 }
 
 
-// =====================================
-// 6. EMAIL VALIDATION
-// =====================================
+
+// EMAIL VALIDATION
+
 
 function isValidEmail(emailValue) {
 
@@ -94,9 +95,9 @@ function isValidEmail(emailValue) {
 }
 
 
-// =====================================
-// 7. PASSWORD VALIDATION
-// =====================================
+
+//  PASSWORD VALIDATION
+
 
 function isValidPassword(passwordValue) {
 
@@ -105,9 +106,9 @@ function isValidPassword(passwordValue) {
 }
 
 
-// =====================================
-// 8. GET SAVED ACCOUNT SAFELY
-// =====================================
+
+//  GET SAVED ACCOUNT SAFELY
+
 
 function getSavedUser() {
 
@@ -130,9 +131,8 @@ function getSavedUser() {
 }
 
 
-// =====================================
-// 9. FORGOT PASSWORD BUTTON
-// =====================================
+//  FORGOT PASSWORD BUTTON
+
 
 forgotPasswordBtn.addEventListener("click", function () {
 
@@ -141,9 +141,9 @@ forgotPasswordBtn.addEventListener("click", function () {
 });
 
 
-// =====================================
-// 10. CREATE ACCOUNT BUTTON
-// =====================================
+
+// CREATE ACCOUNT BUTTON
+
 
 createAccountBtn.addEventListener("click", function () {
 
@@ -152,9 +152,9 @@ createAccountBtn.addEventListener("click", function () {
 });
 
 
-// =====================================
-// 11. BACK TO LOGIN FROM FORGOT
-// =====================================
+
+//  BACK TO LOGIN FROM FORGOT
+
 
 backToLoginFromForgot.addEventListener("click", function () {
 
@@ -165,9 +165,9 @@ backToLoginFromForgot.addEventListener("click", function () {
 });
 
 
-// =====================================
-// 12. BACK TO LOGIN FROM SIGNUP
-// =====================================
+
+// BACK TO LOGIN FROM SIGNUP
+
 
 backToLoginFromSignup.addEventListener("click", function () {
 
@@ -178,9 +178,9 @@ backToLoginFromSignup.addEventListener("click", function () {
 });
 
 
-// =====================================
-// 13. SHOW / HIDE PASSWORD
-// =====================================
+
+// SHOW / HIDE PASSWORD
+
 
 togglePassword.addEventListener("click", function () {
 
@@ -199,9 +199,9 @@ togglePassword.addEventListener("click", function () {
 });
 
 
-// =====================================
-// 14. LOGIN USING SPRING BOOT
-// =====================================
+
+// LOGIN USING SPRING BOOT
+
 
 loginForm.addEventListener("submit", async function (event) {
 
@@ -347,9 +347,9 @@ loginForm.addEventListener("submit", async function (event) {
 });
 
 
-// =====================================
-// 15. CREATE ACCOUNT FORM
-// =====================================
+
+// CREATE ACCOUNT FORM
+
 
 signupForm.addEventListener("submit", function (event) {
 
@@ -475,9 +475,9 @@ signupForm.addEventListener("submit", function (event) {
 });
 
 
-// =====================================
-// 16. FORGOT PASSWORD FORM
-// =====================================
+
+// FORGOT PASSWORD FORM
+
 
 forgotForm.addEventListener("submit", function (event) {
 
@@ -593,9 +593,9 @@ forgotForm.addEventListener("submit", function (event) {
 });
 
 
-// =====================================
-// 17. REMEMBER ME
-// =====================================
+
+//  REMEMBER ME
+
 
 const rememberedEmail =
     localStorage.getItem("climentosRememberEmail");
@@ -609,9 +609,9 @@ if (rememberedEmail) {
 }
 
 
-// =====================================
-// 18. INITIAL VIEW
-// =====================================
+
+// INITIAL VIEW
+
 
 showLoginView();
 

@@ -1,13 +1,13 @@
-// =====================================
-// 1. WAIT FOR HTML TO LOAD
-// =====================================
+
+// WAIT FOR HTML TO LOAD
+
 
 document.addEventListener("DOMContentLoaded", function () {
 
 
-    // =====================================
-    // 2. GET HTML ELEMENTS
-    // =====================================
+    
+    //  GET HTML ELEMENTS
+   
 
     const welcomeName = document.getElementById("welcomeName");
 
@@ -26,9 +26,9 @@ document.addEventListener("DOMContentLoaded", function () {
     const toastMessage = document.getElementById("toastMessage");
 
 
-    // =====================================
-    // 3. GET LOGGED-IN USER NAME
-    // =====================================
+
+    //  GET LOGGED-IN USER NAME
+   
 
     const savedUserName = localStorage.getItem("climentosUserName");
 
@@ -49,9 +49,9 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
 
-    // =====================================
-    // 4. DISPLAY TODAY'S DATE
-    // =====================================
+ 
+    // DISPLAY TODAY'S DATE
+   
 
     if (todayDate) {
 
@@ -72,9 +72,9 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
 
-    // =====================================
-    // 5. DISPLAY CURRENT YEAR
-    // =====================================
+    
+    // DISPLAY CURRENT YEAR
+  
 
     if (currentYear) {
 
@@ -85,9 +85,9 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
 
-    // =====================================
-    // 6. TOAST MESSAGE FUNCTION
-    // =====================================
+   
+    // TOAST MESSAGE FUNCTION
+    
 
     let toastTimer;
 
@@ -119,10 +119,8 @@ document.addEventListener("DOMContentLoaded", function () {
 
     }
 
+    // EXPLORE MORE BUTTON
 
-    // =====================================
-    // 7. EXPLORE MORE BUTTON
-    // =====================================
 
     if (exploreButton) {
 
@@ -135,9 +133,9 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
 
-    // =====================================
-    // 8. LOGOUT FUNCTIONALITY
-    // =====================================
+   
+    // LOGOUT FUNCTIONALITY
+   
 
     if (logoutButton) {
 
@@ -167,9 +165,9 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
 
-    // =====================================
-    // 9. WELCOME TOAST MESSAGE
-    // =====================================
+    
+    // WELCOME TOAST MESSAGE
+ 
 
     setTimeout(function () {
 
