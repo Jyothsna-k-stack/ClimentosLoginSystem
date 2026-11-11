@@ -2,205 +2,106 @@
 <html lang="en">
 
 <head>
-
-
-
     <meta charset="UTF-8">
-
-
-    <!-- Responsive design -->
-
-    <meta name="viewport"
-          content="width=device-width, initial-scale=1.0">
-
-
-    <!-- Browser title -->
-
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Climentos | Login</title>
 
     <!-- CSS CONNECTION -->
-
     <link rel="stylesheet" href="css/style.css">
-
 </head>
-
 
 <body>
 
-
-    
-         <!-- MAIN LOGIN CONTAINER -->
-
+    <!-- MAIN LOGIN CONTAINER -->
     <div class="login-container">
 
-
-
-             <!-- LEFT BRANDING SECTION -->
-       
-
+        <!-- LEFT BRANDING SECTION -->
         <div class="branding-section">
-
-
-            <!-- BRANDING CONTENT -->
 
             <div class="branding-content">
 
-
                 <!-- COMPANY LOGO -->
-
                 <div class="brand-logo">
 
-
-                    <!-- C ICON -->
-
                     <div class="logo-icon">
-
                         <span>C</span>
-
                     </div>
 
-
-                    <!-- COMPANY NAME -->
-
-                    <span class="brand-name">
-
-                        Climentos
-
-                    </span>
-
+                    <span class="brand-name">Climentos</span>
 
                 </div>
 
-
-
                 <!-- TAGLINE -->
-
                 <p class="brand-tagline">
-
                     Build • Innovate • Grow Together
-
                 </p>
 
-
-
                 <!-- BRAND MESSAGE -->
-
                 <div class="brand-message">
 
                     <h1>
-
                         Your Ideas.
-
                         <br>
-
                         Our Technology.
-
                     </h1>
 
-
                     <p>
-
                         Together, we create smarter
                         digital experiences.
-
                     </p>
 
                 </div>
 
-
-
                 <!-- BRAND FOOTER -->
-
                 <div class="brand-footer">
-
                     <span>Climentos</span>
-
                     <span>Technology Solutions</span>
-
                 </div>
 
-
-
             </div>
-
 
         </div>
 
 
-
-      
-             <!-- RIGHT LOGIN SECTION -->
-   
-
+        <!-- RIGHT LOGIN SECTION -->
         <div class="login-section">
 
-
-
             <!-- LOGIN CARD -->
-
             <div class="login-card">
-               
-                     <!-- LOGIN LOGO -->                
 
+                <!-- LOGIN LOGO -->
                 <div class="login-logo">
 
+                    <div class="login-logo-icon">C</div>
 
-                    <div class="login-logo-icon">
-
-                        C
-
-                    </div>
-
-
-                    <h2>
-
-                        Climentos
-
-                    </h2>
-
+                    <h2>Climentos</h2>
 
                 </div>
 
 
-            <!-- login view -->
+                <!-- ================================= -->
+                <!-- LOGIN VIEW -->
+                <!-- ================================= -->
 
                 <div id="loginView">
 
-
-                    <!-- WELCOME -->
-
                     <h1 class="welcome-heading">
-
                         Welcome Back!
-
                     </h1>
 
-
                     <p class="welcome-text">
-
                         Login to continue your journey
-
                     </p>
 
-
-
                     <!-- LOGIN FORM -->
-
                     <form id="loginForm">
 
-
-
                         <!-- EMAIL -->
-
                         <div class="input-group">
 
-
                             <label for="email">
-
                                 Email Address
-
                             </label>
-
 
                             <input
                                 type="email"
@@ -209,26 +110,16 @@
                                 placeholder="Enter your email"
                                 required>
 
-
                         </div>
 
-
-
                         <!-- PASSWORD -->
-
                         <div class="input-group">
 
-
                             <label for="password">
-
                                 Password
-
                             </label>
 
-
-
                             <div class="password-container">
-
 
                                 <input
                                     type="password"
@@ -238,179 +129,100 @@
                                     minlength="6"
                                     required>
 
-
-
                                 <!-- SHOW PASSWORD -->
-
                                 <button
                                     type="button"
                                     id="togglePassword"
                                     class="password-toggle">
-
                                     Show
-
                                 </button>
-
 
                             </div>
 
-
                         </div>
 
-
-
                         <!-- REMEMBER AND FORGOT -->
-
                         <div class="login-options">
 
-
-
                             <!-- REMEMBER ME -->
-
                             <label class="remember-label">
-
 
                                 <input
                                     type="checkbox"
                                     id="rememberMe">
 
-
-                                <span>
-
-                                    Remember Me
-
-                                </span>
-
+                                <span>Remember Me</span>
 
                             </label>
 
-
-
                             <!-- FORGOT PASSWORD -->
-
                             <button
                                 type="button"
                                 id="forgotPasswordBtn"
                                 class="text-link">
-
                                 Forgot Password?
-
                             </button>
-
-
 
                         </div>
 
-
-
                         <!-- LOGIN BUTTON -->
-
                         <button
                             type="submit"
                             class="login-button">
-
                             Login →
-
                         </button>
-
-
 
                     </form>
 
-
-
                     <!-- DIVIDER -->
-
                     <div class="divider">
 
-
                         <span></span>
-
-
                         <p>OR</p>
-
-
                         <span></span>
-
 
                     </div>
 
-
-
                     <!-- CREATE ACCOUNT -->
-
                     <div class="create-account">
 
-
-                        <p>
-
-                            Don't have an account?
-
-                        </p>
-
-
+                        <p>Don't have an account?</p>
 
                         <button
                             type="button"
                             id="createAccountBtn"
                             class="text-link">
-
                             Create New Account
-
                         </button>
 
-
-
                     </div>
-
-
 
                 </div>
 
 
-
-               <!-- forgot password view -->
+                <!-- ================================= -->
+                <!-- FORGOT PASSWORD VIEW -->
+                <!-- ================================= -->
 
                 <div id="forgotView" class="hidden-view">
 
-
-
-                    <!-- HEADING -->
-
                     <h1 class="welcome-heading">
-
                         Reset Password
-
                     </h1>
 
-
-
                     <p class="welcome-text">
-
-                        Enter your details to reset your password
-
+                        Follow the steps to reset your password
                     </p>
 
 
-
-                    <!-- FORGOT PASSWORD FORM -->
-
+                    <!-- STEP 1: REQUEST RESET LINK -->
                     <form id="forgotForm">
-
-
-
-                        <!-- EMAIL -->
 
                         <div class="input-group">
 
-
                             <label for="resetEmail">
-
                                 Email Address
-
                             </label>
-
-
 
                             <input
                                 type="email"
@@ -419,24 +231,28 @@
                                 placeholder="Enter your registered email"
                                 required>
 
-
-
                         </div>
 
+                        <button
+                            type="submit"
+                            class="login-button">
+                            Send Reset Link
+                        </button>
 
+                    </form>
+
+
+                    <!-- STEP 2: ENTER NEW PASSWORD -->
+                    <form
+                        id="resetPasswordForm"
+                        class="hidden-view">
 
                         <!-- NEW PASSWORD -->
-
                         <div class="input-group">
 
-
                             <label for="newPassword">
-
                                 New Password
-
                             </label>
-
-
 
                             <input
                                 type="password"
@@ -446,24 +262,14 @@
                                 minlength="6"
                                 required>
 
-
-
                         </div>
 
-
-
                         <!-- CONFIRM PASSWORD -->
-
                         <div class="input-group">
 
-
                             <label for="confirmResetPassword">
-
                                 Confirm Password
-
                             </label>
-
-
 
                             <input
                                 type="password"
@@ -473,87 +279,52 @@
                                 minlength="6"
                                 required>
 
-
-
                         </div>
 
-
-
                         <!-- RESET BUTTON -->
-
                         <button
                             type="submit"
                             class="login-button">
-
                             Reset Password
-
                         </button>
-
-
 
                     </form>
 
 
-
                     <!-- BACK TO LOGIN -->
-
                     <button
                         type="button"
                         id="backToLoginFromForgot"
                         class="back-button">
-
                         ← Back to Login
-
                     </button>
-
-
 
                 </div>
 
 
-     
-             <!--  create account view -->
+                <!-- ================================= -->
+                <!-- SIGNUP VIEW -->
+                <!-- ================================= -->
 
                 <div id="signupView" class="hidden-view">
 
-
-
-                    <!-- HEADING -->
-
                     <h1 class="welcome-heading">
-
                         Create Account
-
                     </h1>
 
-
-
                     <p class="welcome-text">
-
                         Join Climentos and start your journey
-
                     </p>
 
-
-
                     <!-- SIGNUP FORM -->
-
                     <form id="signupForm">
 
-
-
                         <!-- FULL NAME -->
-
                         <div class="input-group">
 
-
                             <label for="fullName">
-
                                 Full Name
-
                             </label>
-
-
 
                             <input
                                 type="text"
@@ -563,24 +334,14 @@
                                 minlength="2"
                                 required>
 
-
-
                         </div>
 
-
-
                         <!-- EMAIL -->
-
                         <div class="input-group">
 
-
                             <label for="signupEmail">
-
                                 Email Address
-
                             </label>
-
-
 
                             <input
                                 type="email"
@@ -589,24 +350,14 @@
                                 placeholder="Enter your email"
                                 required>
 
-
-
                         </div>
 
-
-
                         <!-- PASSWORD -->
-
                         <div class="input-group">
 
-
                             <label for="signupPassword">
-
                                 Password
-
                             </label>
-
-
 
                             <input
                                 type="password"
@@ -616,24 +367,14 @@
                                 minlength="6"
                                 required>
 
-
-
                         </div>
 
-
-
                         <!-- CONFIRM PASSWORD -->
-
                         <div class="input-group">
 
-
                             <label for="confirmPassword">
-
                                 Confirm Password
-
                             </label>
-
-
 
                             <input
                                 type="password"
@@ -643,76 +384,42 @@
                                 minlength="6"
                                 required>
 
-
-
                         </div>
 
-
-
                         <!-- CREATE ACCOUNT BUTTON -->
-
                         <button
                             type="submit"
                             class="login-button">
-
                             Create Account
-
                         </button>
-
-
 
                     </form>
 
-
-
                     <!-- BACK TO LOGIN -->
-
                     <button
                         type="button"
                         id="backToLoginFromSignup"
                         class="back-button">
-
                         ← Back to Login
-
                     </button>
 
-
-
                 </div>
 
 
-
-              
-                     <!-- LOGIN FOOTER -->
-                
-
+                <!-- LOGIN FOOTER -->
                 <div class="login-footer">
-
                     Together for a Smarter Tomorrow
-
                 </div>
-
-
 
             </div>
 
-
-
         </div>
-
-
 
     </div>
 
 
-
-
-         <!-- JAVASCRIPT CONNECTION -->
-   
-
+    <!-- JAVASCRIPT CONNECTION -->
     <script src="js/script.js"></script>
 
-
 </body>
-
 </html>

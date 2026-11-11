@@ -1,618 +1,538 @@
 document.addEventListener("DOMContentLoaded", function () {
-    //start js after html has been loaded
+
+    // ==========================================
+    // 1. BACKEND API URLS
+    // ==========================================
+
+    const LOGIN_API = "http://localhost:8080/api/users/login";
+    const REGISTER_API = "http://localhost:8080/api/users/register";
+    const FORGOT_PASSWORD_API = "http://localhost:8080/api/users/forgot-password";
+    const RESET_PASSWORD_API = "http://localhost:8080/api/users/reset-password";
 
 
-//  GET HTML ELEMENTS
+    // ==========================================
+    // 2. GET HTML ELEMENTS
+    // ==========================================
+
+    const loginView = document.getElementById("loginView");
+    const forgotView = document.getElementById("forgotView");
+    const signupView = document.getElementById("signupView");
+
+    const loginForm = document.getElementById("loginForm");
+    const forgotForm = document.getElementById("forgotForm");
+    const resetPasswordForm = document.getElementById("resetPasswordForm");
+    const signupForm = document.getElementById("signupForm");
+
+    const emailInput = document.getElementById("email");
+    const passwordInput = document.getElementById("password");
+    const togglePassword = document.getElementById("togglePassword");
+
+    const rememberMe = document.getElementById("rememberMe");
+
+    const forgotPasswordBtn = document.getElementById("forgotPasswordBtn");
+    const createAccountBtn = document.getElementById("createAccountBtn");
+
+    const backToLoginFromForgot =
+        document.getElementById("backToLoginFromForgot");
+
+    const backToLoginFromSignup =
+        document.getElementById("backToLoginFromSignup");
+
+    const resetEmail = document.getElementById("resetEmail");
+    const newPassword = document.getElementById("newPassword");
+    const confirmResetPassword =
+        document.getElementById("confirmResetPassword");
+
+    const fullName = document.getElementById("fullName");
+    const signupEmail = document.getElementById("signupEmail");
+    const signupPassword = document.getElementById("signupPassword");
+    const confirmPassword = document.getElementById("confirmPassword");
 
 
-const loginView = document.getElementById("loginView");
-const forgotView = document.getElementById("forgotView");
-const signupView = document.getElementById("signupView");
+    // ==========================================
+    // 3. RESET TOKEN FROM EMAIL LINK
+    // ==========================================
 
-const loginForm = document.getElementById("loginForm");
-const forgotForm = document.getElementById("forgotForm");
-const signupForm = document.getElementById("signupForm");
-
-const email = document.getElementById("email");
-const password = document.getElementById("password");
-
-const togglePassword = document.getElementById("togglePassword");
-const rememberMe = document.getElementById("rememberMe");
-
-const forgotPasswordBtn =
-    document.getElementById("forgotPasswordBtn");
-
-const createAccountBtn =
-    document.getElementById("createAccountBtn");
-
-const backToLoginFromForgot =
-    document.getElementById("backToLoginFromForgot");
-
-const backToLoginFromSignup =
-    document.getElementById("backToLoginFromSignup");
+    let resetToken = new URLSearchParams(window.location.search)
+        .get("token");
 
 
+    // ==========================================
+    // 4. EMAIL VALIDATION
+    // ==========================================
 
-// STORAGE KEY
-
-
-const USER_STORAGE_KEY = "climentosUser";
-
-// BACKEND LOGIN API
-const LOGIN_API =
-    "http://localhost:8080/api/users/login";
-
-
-
-// SHOW LOGIN VIEW
-
-
-function showLoginView() {
-
-    loginView.classList.remove("hidden-view");
-    forgotView.classList.add("hidden-view");
-    signupView.classList.add("hidden-view");
-
-}
-
-
-
-//  SHOW FORGOT PASSWORD VIEW
-
-
-function showForgotView() {
-
-    loginView.classList.add("hidden-view");
-    forgotView.classList.remove("hidden-view");
-    signupView.classList.add("hidden-view");
-
-}
-
-
-
-// SHOW SIGNUP VIEW
-
-
-function showSignupView() {
-
-    loginView.classList.add("hidden-view");
-    forgotView.classList.add("hidden-view");
-    signupView.classList.remove("hidden-view");
-
-}
-
-
-
-// EMAIL VALIDATION
-
-
-function isValidEmail(emailValue) {
-
-    const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-
-    return emailPattern.test(emailValue);
-
-}
-
-
-
-//  PASSWORD VALIDATION
-
-
-function isValidPassword(passwordValue) {
-
-    return passwordValue.length >= 6;
-
-}
-
-
-
-//  GET SAVED ACCOUNT SAFELY
-
-
-function getSavedUser() {
-
-    const savedUser = localStorage.getItem(USER_STORAGE_KEY);
-
-    if (!savedUser) {
-        return null;
+    function isValidEmail(email) {
+        const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        return emailPattern.test(email);
     }
 
-    try {
 
-        return JSON.parse(savedUser);
+    // ==========================================
+    // 5. SHOW AND HIDE DIFFERENT VIEWS
+    // ==========================================
 
-    } catch (error) {
+    function showLoginView() {
 
-        return null;
-
-    }
-
-}
-
-
-//  FORGOT PASSWORD BUTTON
-
-
-forgotPasswordBtn.addEventListener("click", function () {
-
-    showForgotView();
-
-});
-
-
-
-// CREATE ACCOUNT BUTTON
-
-
-createAccountBtn.addEventListener("click", function () {
-
-    showSignupView();
-
-});
-
-
-
-//  BACK TO LOGIN FROM FORGOT
-
-
-backToLoginFromForgot.addEventListener("click", function () {
-
-    forgotForm.reset();
-
-    showLoginView();
-
-});
-
-
-
-// BACK TO LOGIN FROM SIGNUP
-
-
-backToLoginFromSignup.addEventListener("click", function () {
-
-    signupForm.reset();
-
-    showLoginView();
-
-});
-
-
-
-// SHOW / HIDE PASSWORD
-
-
-togglePassword.addEventListener("click", function () {
-
-    if (password.type === "password") {
-
-        password.type = "text";
-        togglePassword.textContent = "Hide";
-
-    } else {
-
-        password.type = "password";
-        togglePassword.textContent = "Show";
-
-    }
-
-});
-
-
-
-// LOGIN USING SPRING BOOT
-
-
-loginForm.addEventListener("submit", async function (event) {
-
-    event.preventDefault();
-
-
-    // GET EMAIL AND PASSWORD
-
-    const enteredEmail = email.value.trim().toLowerCase();
-
-    const enteredPassword = password.value;
-
-
-    // VALIDATE EMAIL
-
-    if (!isValidEmail(enteredEmail)) {
-
-        alert("Please enter a valid email address.");
-
-        email.focus();
-
-        return;
+        loginView.classList.remove("hidden-view");
+        forgotView.classList.add("hidden-view");
+        signupView.classList.add("hidden-view");
 
     }
 
 
-    // VALIDATE PASSWORD
+    function showForgotView() {
 
-    if (!isValidPassword(enteredPassword)) {
+        loginView.classList.add("hidden-view");
+        forgotView.classList.remove("hidden-view");
+        signupView.classList.add("hidden-view");
 
-        alert("Password must contain at least 6 characters.");
-
-        password.focus();
-
-        return;
+        forgotForm.classList.remove("hidden-view");
+        resetPasswordForm.classList.add("hidden-view");
 
     }
 
 
-    // SEND LOGIN REQUEST TO BACKEND
+    function showSignupView() {
 
-    try {
+        loginView.classList.add("hidden-view");
+        forgotView.classList.add("hidden-view");
+        signupView.classList.remove("hidden-view");
 
-        const response = await fetch(LOGIN_API, {
-
-            method: "POST",
-
-            headers: {
-                "Content-Type": "application/json"
-            },
-
-            body: JSON.stringify({
-
-                email: enteredEmail,
-                password: enteredPassword
-
-            })
-
-        });
+    }
 
 
-        // GET BACKEND RESPONSE
+    // ==========================================
+    // 6. FORGOT PASSWORD VIEW
+    // ==========================================
 
-        const result = await response.text();
+    forgotPasswordBtn.addEventListener("click", function () {
 
+        resetToken = null;
 
-        // CHECK LOGIN SUCCESS
+        forgotForm.reset();
+        resetPasswordForm.reset();
 
-        if (response.ok && result.trim() === "Login successful") {
+        showForgotView();
 
-
-            // GET USERNAME FROM EMAIL
-
-            let username = enteredEmail.split("@")[0];
-
-
-            // IF REGISTERED ACCOUNT EXISTS, USE FULL NAME
-
-            const savedUser = getSavedUser();
-
-            if (
-                savedUser &&
-                savedUser.email &&
-                savedUser.email.toLowerCase() === enteredEmail
-            ) {
-
-                username = savedUser.fullName;
-
-            }
+    });
 
 
-            // SAVE USERNAME FOR WELCOME PAGE
+    // ==========================================
+    // 7. CREATE ACCOUNT VIEW
+    // ==========================================
 
-            localStorage.setItem(
-                "climentosUserName",
-                username
-            );
+    createAccountBtn.addEventListener("click", function () {
 
+        signupForm.reset();
 
-            // REMEMBER ME
+        showSignupView();
 
-            if (rememberMe.checked) {
-
-                localStorage.setItem(
-                    "climentosRememberEmail",
-                    enteredEmail
-                );
-
-            } else {
-
-                localStorage.removeItem(
-                    "climentosRememberEmail"
-                );
-
-            }
+    });
 
 
-            // OPEN WELCOME PAGE
+    // ==========================================
+    // 8. BACK TO LOGIN BUTTONS
+    // ==========================================
 
-            window.location.href = "welcome.html";
+    backToLoginFromForgot.addEventListener("click", function () {
+
+        resetToken = null;
+
+        forgotForm.reset();
+        resetPasswordForm.reset();
+
+        window.history.replaceState(
+            {},
+            document.title,
+            window.location.pathname
+        );
+
+        showLoginView();
+
+    });
+
+
+    backToLoginFromSignup.addEventListener("click", function () {
+
+        signupForm.reset();
+
+        showLoginView();
+
+    });
+
+
+    // ==========================================
+    // 9. SHOW / HIDE LOGIN PASSWORD
+    // ==========================================
+
+    togglePassword.addEventListener("click", function () {
+
+        if (passwordInput.type === "password") {
+
+            passwordInput.type = "text";
+            togglePassword.textContent = "Hide";
 
         } else {
 
-            // LOGIN FAILED
-
-            alert("Invalid email or password.");
+            passwordInput.type = "password";
+            togglePassword.textContent = "Show";
 
         }
 
-    } catch (error) {
-
-        // BACKEND CONNECTION ERROR
-
-        console.error("Login error:", error);
-
-        alert(
-            "Unable to connect to the backend. " +
-            "Please make sure Spring Boot is running."
-        );
-
-    }
-
-});
+    });
 
 
+    // ==========================================
+    // 10. REMEMBER ME
+    // ==========================================
 
-// CREATE ACCOUNT FORM
+    const savedEmail = localStorage.getItem("climentosRememberEmail");
 
+    if (savedEmail) {
 
-signupForm.addEventListener("submit", function (event) {
-
-    event.preventDefault();
-
-
-    // GET FORM VALUES
-
-    const fullName =
-        document.getElementById("fullName").value.trim();
-
-    const signupEmail =
-        document.getElementById("signupEmail").value.trim().toLowerCase();
-
-    const signupPassword =
-        document.getElementById("signupPassword").value;
-
-    const confirmPassword =
-        document.getElementById("confirmPassword").value;
-
-
-    // VALIDATE NAME
-
-    if (fullName.length < 2) {
-
-        alert("Please enter your full name.");
-
-        return;
+        emailInput.value = savedEmail;
+        rememberMe.checked = true;
 
     }
 
 
-    // VALIDATE EMAIL
+    // ==========================================
+    // 11. LOGIN FORM
+    // ==========================================
 
-    if (!isValidEmail(signupEmail)) {
+    loginForm.addEventListener("submit", async function (event) {
 
-        alert("Please enter a valid email address.");
+        event.preventDefault();
 
-        return;
+        const email = emailInput.value.trim();
+        const password = passwordInput.value;
+
+        if (!isValidEmail(email)) {
+
+            alert("Please enter a valid email address.");
+            return;
+
+        }
+
+        if (password.length < 6) {
+
+            alert("Password must contain at least 6 characters.");
+            return;
+
+        }
+
+        try {
+
+            const response = await fetch(LOGIN_API, {
+
+                method: "POST",
+
+                headers: {
+                    "Content-Type": "application/json"
+                },
+
+                body: JSON.stringify({
+                    email: email,
+                    password: password
+                })
+
+            });
+
+            const result = await response.text();
+
+            if (response.ok && result.toLowerCase().includes("successful")) {
+
+                const username = email.split("@")[0];
+
+                localStorage.setItem("climentosUserName", username);
+
+                if (rememberMe.checked) {
+
+                    localStorage.setItem("climentosRememberEmail", email);
+
+                } else {
+
+                    localStorage.removeItem("climentosRememberEmail");
+
+                }
+
+                alert("Login successful!");
+
+                window.location.href = "welcome.html";
+
+            } else {
+
+                alert(result || "Invalid email or password.");
+
+            }
+
+        } catch (error) {
+
+            console.error("Login Error:", error);
+
+            alert("Unable to connect to the server. Please try again.");
+
+        }
+
+    });
+
+
+    // ==========================================
+    // 12. SIGNUP FORM
+    // ==========================================
+
+    signupForm.addEventListener("submit", async function (event) {
+
+        event.preventDefault();
+
+        const name = fullName.value.trim();
+        const email = signupEmail.value.trim();
+        const password = signupPassword.value;
+        const confirm = confirmPassword.value;
+
+        if (name === "") {
+
+            alert("Please enter your full name.");
+            return;
+
+        }
+
+        if (!isValidEmail(email)) {
+
+            alert("Please enter a valid email address.");
+            return;
+
+        }
+
+        if (password.length < 6) {
+
+            alert("Password must contain at least 6 characters.");
+            return;
+
+        }
+
+        if (password !== confirm) {
+
+            alert("Passwords do not match.");
+            return;
+
+        }
+
+        try {
+
+            const response = await fetch(REGISTER_API, {
+
+                method: "POST",
+
+                headers: {
+                    "Content-Type": "application/json"
+                },
+
+                body: JSON.stringify({
+
+                    name: name,
+                    email: email,
+                    password: password
+
+                })
+
+            });
+
+            const result = await response.text();
+
+            if (response.ok &&
+                result.toLowerCase().includes("successful")) {
+
+                alert("Account created successfully! Please login.");
+
+                signupForm.reset();
+
+                emailInput.value = email;
+
+                showLoginView();
+
+            } else {
+
+                alert(result || "Registration failed.");
+
+            }
+
+        } catch (error) {
+
+            console.error("Signup Error:", error);
+
+            alert("Unable to connect to the server. Please try again.");
+
+        }
+
+    });
+
+
+    // ==========================================
+    // 13. FORGOT PASSWORD - SEND RESET EMAIL
+    // ==========================================
+
+    forgotForm.addEventListener("submit", async function (event) {
+
+        event.preventDefault();
+
+        const email = resetEmail.value.trim();
+
+        if (!isValidEmail(email)) {
+
+            alert("Please enter a valid email address.");
+            return;
+
+        }
+
+        try {
+
+            const response = await fetch(FORGOT_PASSWORD_API, {
+
+                method: "POST",
+
+                headers: {
+                    "Content-Type": "application/json"
+                },
+
+                body: JSON.stringify({
+
+                    email: email
+
+                })
+
+            });
+
+            const result = await response.text();
+
+            if (response.ok &&
+                result.toLowerCase().includes("sent")) {
+
+                alert("Password reset link sent to your email. Please check your inbox.");
+
+                forgotForm.reset();
+
+            } else {
+
+                alert(result || "Unable to send password reset link.");
+
+            }
+
+        } catch (error) {
+
+            console.error("Forgot Password Error:", error);
+
+            alert("Unable to connect to the server. Please try again.");
+
+        }
+
+    });
+
+
+    // ==========================================
+    // 14. SHOW RESET PASSWORD FORM FROM EMAIL LINK
+    // ==========================================
+
+    if (resetToken) {
+
+        loginView.classList.add("hidden-view");
+        signupView.classList.add("hidden-view");
+        forgotView.classList.remove("hidden-view");
+
+        forgotForm.classList.add("hidden-view");
+        resetPasswordForm.classList.remove("hidden-view");
+
+    } else {
+
+        showLoginView();
 
     }
 
 
-    // VALIDATE PASSWORD
+    // ==========================================
+    // 15. RESET PASSWORD FORM
+    // ==========================================
 
-    if (!isValidPassword(signupPassword)) {
+    resetPasswordForm.addEventListener("submit", async function (event) {
 
-        alert("Password must contain at least 6 characters.");
+        event.preventDefault();
 
-        return;
+        if (!resetToken) {
 
-    }
+            alert("Invalid or missing password reset link.");
+            return;
 
+        }
 
-    // CHECK PASSWORD MATCH
+        const password = newPassword.value;
+        const confirm = confirmResetPassword.value;
 
-    if (signupPassword !== confirmPassword) {
+        if (password.length < 8) {
 
-        alert("Passwords do not match.");
+            alert("New password must contain at least 8 characters.");
+            return;
 
-        return;
+        }
 
-    }
+        if (password !== confirm) {
 
+            alert("New password and confirm password do not match.");
+            return;
 
-    // CHECK EXISTING ACCOUNT
+        }
 
-    const existingUser = getSavedUser();
+        try {
 
-    if (
-        existingUser &&
-        existingUser.email &&
-        existingUser.email.toLowerCase() === signupEmail
-    ) {
+            const response = await fetch(RESET_PASSWORD_API, {
 
-        alert("An account already exists with this email.");
+                method: "POST",
 
-        return;
+                headers: {
+                    "Content-Type": "application/json"
+                },
 
-    }
+                body: JSON.stringify({
 
+                    token: resetToken,
+                    newPassword: password
 
-    // CREATE NEW ACCOUNT
+                })
 
-    const newUser = {
+            });
 
-        fullName: fullName,
-        email: signupEmail,
-        password: signupPassword
+            const result = await response.text();
 
-    };
+            if (response.ok &&
+                result.toLowerCase().includes("successful")) {
 
+                alert("Password reset successful! Please login with your new password.");
 
-    // SAVE ACCOUNT IN LOCAL STORAGE
+                resetPasswordForm.reset();
 
-    localStorage.setItem(
-        USER_STORAGE_KEY,
-        JSON.stringify(newUser)
-    );
+                resetToken = null;
 
+                window.history.replaceState(
+                    {},
+                    document.title,
+                    window.location.pathname
+                );
 
-    // SUCCESS MESSAGE
+                showLoginView();
 
-    alert("Account created successfully! You can now login.");
+            } else {
 
+                alert(result || "Password reset failed. Please try again.");
 
-    // RESET SIGNUP FORM
+            }
 
-    signupForm.reset();
+        } catch (error) {
 
+            console.error("Reset Password Error:", error);
 
-    // RETURN TO LOGIN
+            alert("Unable to connect to the server. Please try again.");
 
-    showLoginView();
+        }
 
-
-    // FILL REGISTERED EMAIL
-
-    email.value = signupEmail;
-
-    password.value = "";
-
-});
-
-
-
-// FORGOT PASSWORD FORM
-
-
-forgotForm.addEventListener("submit", function (event) {
-
-    event.preventDefault();
-
-
-    // GET FORM VALUES
-
-    const resetEmail =
-        document.getElementById("resetEmail").value.trim().toLowerCase();
-
-    const newPassword =
-        document.getElementById("newPassword").value;
-
-    const confirmResetPassword =
-        document.getElementById("confirmResetPassword").value;
-
-
-    // VALIDATE EMAIL
-
-    if (!isValidEmail(resetEmail)) {
-
-        alert("Please enter a valid email address.");
-
-        return;
-
-    }
-
-
-    // VALIDATE PASSWORD
-
-    if (!isValidPassword(newPassword)) {
-
-        alert("Password must contain at least 6 characters.");
-
-        return;
-
-    }
-
-
-    // CHECK PASSWORD MATCH
-
-    if (newPassword !== confirmResetPassword) {
-
-        alert("Passwords do not match.");
-
-        return;
-
-    }
-
-
-    // GET REGISTERED ACCOUNT
-
-    const user = getSavedUser();
-
-
-    // CHECK ACCOUNT
-
-    if (!user || !user.email) {
-
-        alert("No registered account found.");
-
-        return;
-
-    }
-
-
-    // CHECK REGISTERED EMAIL
-
-    if (user.email.toLowerCase() !== resetEmail) {
-
-        alert("Email address is not registered.");
-
-        return;
-
-    }
-
-
-    // UPDATE PASSWORD
-
-    user.password = newPassword;
-
-
-    // SAVE UPDATED ACCOUNT
-
-    localStorage.setItem(
-        USER_STORAGE_KEY,
-        JSON.stringify(user)
-    );
-
-
-    // SUCCESS MESSAGE
-
-    alert("Password updated successfully!");
-
-
-    // RESET FORM
-
-    forgotForm.reset();
-
-
-    // RETURN TO LOGIN
-
-    showLoginView();
-
-
-    // FILL EMAIL
-
-    email.value = resetEmail;
-
-    password.value = "";
-
-});
-
-
-
-//  REMEMBER ME
-
-
-const rememberedEmail =
-    localStorage.getItem("climentosRememberEmail");
-
-if (rememberedEmail) {
-
-    email.value = rememberedEmail;
-
-    rememberMe.checked = true;
-
-}
-
-
-
-// INITIAL VIEW
-
-
-showLoginView();
+    });
 
 });
